@@ -1,42 +1,57 @@
 <template>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <router-link class="navbar-brand" to="/">Stock Trader</router-link>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <router-link tag="li" to="/portfolio" activeClass="active"><a>Portfolio</a></router-link>
-          <router-link tag="li" to="/stocks" activeClass="active"><a>Stocks</a></router-link>
-        </ul>
-        <strong class="navbar-text navbar-right">Funds: {{ currency }}</strong>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" @click="endDay">End Day</a></li>
-          <li
-            class="dropdown"
-            @click="isDropdownOpen = !isDropdownOpen"
-            :class="{ open: isDropdownOpen }"
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <router-link class="navbar-brand" to="/">
+      <img
+        src="https://img.icons8.com/fluent/48/000000/bitcoin-exchange.png"
+        width="35"
+        height="35"
+        class="d-inline-block align-top"
+        alt=""
+      />
+      Stock Trader
+    </router-link>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <router-link tag="li" to="/portfolio" activeClass="nav-item active"
+          ><a class="nav-link"
+            >Portfolio<span class="sr-only">(current)</span></a
+          ></router-link
+        >
+        <router-link tag="li" to="/stocks" activeClass="nav-item active"
+          ><a class="nav-link"
+            >Stocks<span class="sr-only">(current)</span></a
+          ></router-link
+        >
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li><a href="#" class="nav-link" @click="endDay">End Day</a></li>
+        <li
+          class="nav-item dropdown"
+          @click="isDropdownOpen = !isDropdownOpen"
+          
+        >
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
-            <a
-              href="#"
-              class="dropdown-toggle"
-              data-toggle="dropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-              >Save & Load <span class="caret"></span
-            ></a>
-            <ul class="dropdown-menu">
-              <li><a href="#" @click="saveData">Save Data</a></li>
-              <li><a href="#" @click="loadData">Load Data</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
+            Save & Load
+          </a>
+          <div class="dropdown-menu" :class="{ show: isDropdownOpen }">
+            <a href="#" class="dropdown-item" @click="saveData">Save Data</a>
+            <a href="#" class="dropdown-item" @click="loadData">Load Data</a>
+          </div>
+        </li>
+      </ul>
+      <strong class="navbar-text navbar-right">Funds: {{ currency }}</strong>
     </div>
-    <!-- /.container-fluid -->
   </nav>
+  <br />
+  <br />
 </template>
 
 <script>
@@ -60,9 +75,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      randomizeStocks:'randomizeStocks',
-      fetchData: 'loadData'
-      }),
+      randomizeStocks: "randomizeStocks",
+      fetchData: "loadData",
+    }),
     endDay() {
       this.randomizeStocks();
     },
@@ -72,11 +87,14 @@ export default {
         stockPortfolio: this.$store.getters.stockPortfolio,
         stocks: this.$store.getters.stocks,
       };
-      axios.put('https://stock-trader-80090-default-rtdb.firebaseio.com/data.json', data)
+      axios.put(
+        "https://stock-trader-80090-default-rtdb.firebaseio.com/data.json",
+        data
+      );
     },
     loadData() {
-      this.fetchData()
-    }
+      this.fetchData();
+    },
   },
 };
 </script>

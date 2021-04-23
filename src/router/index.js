@@ -10,12 +10,12 @@ const routes = [
   {
     path: '/portfolio',
     name: 'Portfolio',
-    component: () => import('../components/portfolio/Portfolio.vue')
+    component: () => import(/* webpackChunkName: "portfolio" */ '../components/portfolio/Portfolio.vue')
   },
   {
     path: '/stocks',
     name: 'Stocks',
-    component: () => import('../components/stocks/Stocks.vue')
+    component: () => import(/* webpackChunkName: "stocks" */ '../components/stocks/Stocks.vue')
   },
 
 ]

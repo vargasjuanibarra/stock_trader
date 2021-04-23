@@ -1,36 +1,32 @@
 <template>
-  <div class="col-sm-6 col-md-4">
-    <div class="panel panel-success">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          {{ stock.name }}
-          <small>(price: {{ stock.price }})</small>
-        </h3>
-      </div>
-      <div class="panel-body">
-        <div class="pull-left">
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Quantity"
-            v-model="quantity"
-            :class="{danger: insufficientFunds}"
-          />
-        </div>
-        <div class="pull-right">
-          <button
-            class="btn btn-success"
-            @click="buyStock"
-            :disabled="
-              insufficientFunds || quantity <= 0 || !Number.isInteger(+quantity)
-            "
-          >
-            {{insufficientFunds ? 'Insufficient Funds' : 'Buy'}}
-          </button>
+      <div class="pad col-sm-6 col-md-4">
+        <div class="card ">
+          <h5 class="card-header">
+            {{ stock.name }} <small>(price: {{ stock.price }})</small>
+          </h5>
+          <div class="card-body d-flex">
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Quantity"
+              v-model="quantity"
+              :class="{ danger: insufficientFunds }"
+            />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button
+              class="btn btn-success"
+              @click="buyStock"
+              :disabled="
+                insufficientFunds ||
+                quantity <= 0 ||
+                !Number.isInteger(+quantity)
+              "
+            >
+              {{ insufficientFunds ? "Insufficient Funds" : "Buy" }}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -64,7 +60,17 @@ export default {
 </script>
 
 <style scoped>
-  .danger {
-    border: 1px solid red;
-  }
+.danger {
+  border: 1px solid red;
+}
+.pad {
+  padding: 20px;
+}
+.card .card-header{
+  background-color: #82f7824f;
+  color: #006600;
+}
+.btn {
+  background-color: #48b948;
+}
 </style>
